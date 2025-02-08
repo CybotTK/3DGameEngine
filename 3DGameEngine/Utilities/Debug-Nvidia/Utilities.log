@@ -1,0 +1,10 @@
+﻿cl : command line  warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  stdafx.cpp
+cl : command line  warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  TGA.cpp
+  Math.cpp
+  esUtil_win.cpp
+  esUtil.cpp
+  esShader.cpp
+  Generating Code...
+  Utilities.vcxproj -> C:\GameloftWorkshop\3DGameEngine_Project\3DGameEngine\BIN-Nvidia\Utilities.lib

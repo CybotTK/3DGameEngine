@@ -1,0 +1,128 @@
+﻿  stdafx.cpp
+  Camera.cpp
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\Camera.cpp(52,28): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+  (compiling source file '/Camera.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\Camera.cpp(63,28): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+  (compiling source file '/Camera.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\Camera.cpp(74,28): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+  (compiling source file '/Camera.cpp')
+  
+  Globals.cpp
+  Model.cpp
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\Model.cpp(42,16): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+  (compiling source file '/Model.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\Model.cpp(44,16): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+  (compiling source file '/Model.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\Model.cpp(46,16): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+  (compiling source file '/Model.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\Model.cpp(56,16): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+  (compiling source file '/Model.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\Model.cpp(58,16): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+  (compiling source file '/Model.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\Model.cpp(60,16): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+  (compiling source file '/Model.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\Model.cpp(70,16): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+  (compiling source file '/Model.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\Model.cpp(72,16): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+  (compiling source file '/Model.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\Model.cpp(74,16): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+  (compiling source file '/Model.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\Model.cpp(84,16): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+  (compiling source file '/Model.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\Model.cpp(86,16): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+  (compiling source file '/Model.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\Model.cpp(88,16): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+  (compiling source file '/Model.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\Model.cpp(98,16): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+  (compiling source file '/Model.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\Model.cpp(100,16): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+  (compiling source file '/Model.cpp')
+  
+  3DGameEngine.cpp
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\3DGameEngine.cpp(22,9): warning C4005: 'PI': macro redefinition
+  (compiling source file '/3DGameEngine.cpp')
+      C:\GameloftWorkshop\proiect_2015\3DGameEngine\Utilities\Math.h(5,9):
+      see previous definition of 'PI'
+  
+  ResourceManager.cpp
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\ResourceManager.cpp(84,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/ResourceManager.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\ResourceManager.cpp(88,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/ResourceManager.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\ResourceManager.cpp(129,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/ResourceManager.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\RapidXML\rapidxml_utils.hpp(40,25): warning C4244: 'initializing': conversion from 'std::streamoff' to 'size_t', possible loss of data
+  (compiling source file '/ResourceManager.cpp')
+      C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\RapidXML\rapidxml_utils.hpp(40,25):
+      the template instantiation context (the oldest one first) is
+          C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\ResourceManager.cpp(153,19):
+          see reference to class template instantiation 'rapidxml::file<char>' being compiled
+          C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\RapidXML\rapidxml_utils.hpp(28,9):
+          while compiling class template member function 'rapidxml::file<char>::file(const char *)'
+              C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\ResourceManager.cpp(153,23):
+              see the first reference to 'rapidxml::file<char>::file' in 'ResourceManager::Initialize'
+  
+  SceneManager.cpp
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\SceneManager.cpp(58,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file '/SceneManager.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\SceneManager.cpp(59,37): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file '/SceneManager.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\SceneManager.cpp(245,41): warning C4244: '=': conversion from 'int' to 'GLfloat', possible loss of data
+  (compiling source file '/SceneManager.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\SceneManager.cpp(246,41): warning C4244: '=': conversion from 'int' to 'GLfloat', possible loss of data
+  (compiling source file '/SceneManager.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\SceneManager.cpp(247,41): warning C4244: '=': conversion from 'int' to 'GLfloat', possible loss of data
+  (compiling source file '/SceneManager.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\RapidXML\rapidxml_utils.hpp(40,25): warning C4244: 'initializing': conversion from 'std::streamoff' to 'size_t', possible loss of data
+  (compiling source file '/SceneManager.cpp')
+      C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\RapidXML\rapidxml_utils.hpp(40,25):
+      the template instantiation context (the oldest one first) is
+          C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\SceneManager.cpp(42,19):
+          see reference to class template instantiation 'rapidxml::file<char>' being compiled
+          C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\RapidXML\rapidxml_utils.hpp(28,9):
+          while compiling class template member function 'rapidxml::file<char>::file(const char *)'
+              C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\SceneManager.cpp(42,23):
+              see the first reference to 'rapidxml::file<char>::file' in 'SceneManager::InitializeWindow'
+  
+  SceneObject.cpp
+  Shaders.cpp
+  SkyBox.cpp
+  Terrain.cpp
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\Terrain.cpp(53,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/Terrain.cpp')
+  
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\Terrain.cpp(72,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/Terrain.cpp')
+  
+  Texture.cpp
+C:\GameloftWorkshop\proiect_2015\3DGameEngine\3DGameEngine\Texture.cpp(99,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/Texture.cpp')
+  
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 1954 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  3DGameEngine.vcxproj -> C:\GameloftWorkshop\proiect_2015\3DGameEngine\BIN-Nvidia\3DGameEngine.exe

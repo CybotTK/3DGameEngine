@@ -1,0 +1,9 @@
+﻿  stdafx.cpp
+  esShader.cpp
+  esUtil.cpp
+  esUtil_win.cpp
+  Math.cpp
+  TGA.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1554,5): warning MSB8012: TargetPath(C:\GameloftWorkshop\proiect_2015\3DGameEngine\BIN-ATI\Utilities.lib) does not match the Library's OutputFile property value (C:\GameloftWorkshop\proiect_2015\3DGameEngine\BIN-ATI\UtilitiesR.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1556,5): warning MSB8012: TargetName(Utilities) does not match the Library's OutputFile property value (UtilitiesR). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+  Utilities.vcxproj -> C:\GameloftWorkshop\proiect_2015\3DGameEngine\BIN-ATI\Utilities.lib
