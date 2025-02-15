@@ -269,7 +269,7 @@
 	</objects>
 	<fog>
 		<smallRadius>1</smallRadius>
-		<bigRadius>10</bigRadius>
+		<bigRadius>1000</bigRadius>
 	</fog>
 	<!--
 	<ambientalLight>

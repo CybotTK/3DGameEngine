@@ -34,11 +34,11 @@ void main()
         vec4 wireframeColor = vec4(0.0, 0.0, 1.0, 0.5); // Blue, semi-transparent
         gl_FragColor = mix(color, wireframeColor, edge);
     } else {
-        u_fogSmallRadius;
-        u_fogBigRadius;
-        u_fogColor;
+        float dist = distance(cameraPosition, worldPosition);
+        float alpha = clamp((dist - u_fogSmallRadius)/(u_fogBigRadius-u_fogSmallRadius), 0.0, 1.0);
+
         if (color.a < 0.1) discard; // Default texture-based rendering
-        //gl_FragColor = 0.5 * vec4(u_fogColor, 1.0) + 0.5 * color;
-        gl_FragColor = color;
+
+        gl_FragColor = alpha * vec4(u_fogColor, 1.0) + (1.0 - alpha) * color; // goes from foggy to visible
     }
 }

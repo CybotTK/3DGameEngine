@@ -11,7 +11,7 @@ varying vec3 cameraPosition;
 //uniform variables
 uniform mat4 uMVP;
 uniform mat4 uModelMatrix; // For fog (need position of 
-						  // Model in World)
+						   // Model in World)
 uniform vec3 uCameraPosition;
 
 void main()

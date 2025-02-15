@@ -72,7 +72,7 @@ void SceneObject::sendCommonData()
 
 	}
 	glBindBuffer(GL_ARRAY_BUFFER, modelVboId);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, modelEboId);
+ 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, modelEboId);
 
 	if (shader->positionAttribute != -1)
 	{
@@ -111,7 +111,7 @@ void SceneObject::sendCommonData()
 	}
 
 	if (shader->fogColorUniform != -1) {
-		glUniform3f(shader->fogColorUniform, 1.f, 0.f, 0.f);
+		glUniform3f(shader->fogColorUniform, 0.235294f, 0.2666666f, 0.3333333f); // same color as horizon
 	}
 
 	if (!glIsBuffer(modelEboId)) {
