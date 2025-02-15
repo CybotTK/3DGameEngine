@@ -7,11 +7,16 @@ attribute vec2 a_uv2;
 varying vec2 v_uv;
 varying vec2 v_uv2;
 varying vec4 c_blend;
+varying vec3 worldPosition; // For fog
+varying vec3 cameraPosition;
 
 //uniform variables
 uniform mat4 uMVP;
 uniform vec3 u_height;
 uniform sampler2D u_texture3; //the blend texture
+uniform mat4 uModelMatrix; // For fog (need position of 
+						   // Model in World)
+uniform vec3 uCameraPosition;
 
 void main()
 {
@@ -26,5 +31,10 @@ void main()
 	gl_Position = uMVP * posL;
 	v_uv = a_uv; // for coordonate interpolation
 	v_uv2 = a_uv2;
+	
+	//Fog
+	worldPosition = (uModelMatrix * posL).xyz; // For fog interpolation
+
+	cameraPosition = uCameraPosition;
 }
    

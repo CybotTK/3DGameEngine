@@ -34,9 +34,9 @@ void SceneObject::sendCommonData()
 
 	translationMatrix.SetTranslation(position);
 
-	rotationMatrixX.SetRotationX(rotation.x);
-	rotationMatrixY.SetRotationX(rotation.y);
-	rotationMatrixZ.SetRotationX(rotation.z);
+	rotationMatrixX.SetRotationX(Radians(rotation.x));
+	rotationMatrixY.SetRotationX(Radians(rotation.y));
+	rotationMatrixZ.SetRotationX(Radians(rotation.z));
 	rotationMatrix = rotationMatrixX * rotationMatrixY * rotationMatrixZ;
 
 	scaleMatrix.SetScale(scale);

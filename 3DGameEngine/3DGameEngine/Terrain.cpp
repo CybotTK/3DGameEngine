@@ -29,8 +29,11 @@ void Terrain::sendSpecificData() {
 
 	mvp = terrainTranslation * mvp;
 
-	if (this->shader->matrixUniform != -1)
-	{
+	if (this->shader->modelMatrixUniform != -1) {
+		glUniformMatrix4fv(this->shader->modelMatrixUniform, 1, GL_FALSE, (float*)terrainTranslation.m);
+	}
+
+	if (this->shader->matrixUniform != -1) {
 		glUniformMatrix4fv(this->shader->matrixUniform, 1, GL_FALSE, (float*)mvp.m);
 	}
 
@@ -46,8 +49,6 @@ void Terrain::TerrainUpdate(Vector3 cameraPosition) {
 
 	float dx = abs(cameraPosition.x - terrainCenter.x);
 	float dz = abs(cameraPosition.z - terrainCenter.z);
-
-	bool changesMade = false;
 
 	if (dx > this->model->sizeOfCell) {
 		float uvOffsetX = 1.0 / this->model->nrOfCells;

@@ -18,6 +18,8 @@ void main()
 {
 	vec4 posL = vec4(a_posL, 1.0);
 	gl_Position = uMVP * posL;
+
+	//Fog
 	worldPosition = (uModelMatrix * posL).xyz; // For fog interpolation
 
 	cameraPosition = uCameraPosition;

@@ -248,7 +248,7 @@
 			</textures>
 			<position>
 				<x>0</x>
-				<y>0</y>
+				<y>700</y>
 				<z>0</z>
 			</position>
 			<rotation>
@@ -269,7 +269,7 @@
 	</objects>
 	<fog>
 		<smallRadius>1</smallRadius>
-		<bigRadius>1000</bigRadius>
+		<bigRadius>250</bigRadius>
 	</fog>
 	<!--
 	<ambientalLight>
