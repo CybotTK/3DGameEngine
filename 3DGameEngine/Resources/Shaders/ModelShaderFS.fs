@@ -12,12 +12,10 @@ varying vec3 cameraPosition;
 
 //uniform variables
 uniform sampler2D u_texture0;
-uniform samplerCube u_texture1; // reflection texture skybox
 uniform bool u_wireframe; // Add a uniform to toggle wireframe mode
 uniform float u_fogSmallRadius;
 uniform float u_fogBigRadius;
 uniform vec3 u_fogColor;
-uniform float u_reflection;
 
 void main()
 {
@@ -39,21 +37,5 @@ void main()
         if (color.a < 0.1) discard; // Default texture-based rendering
 
         gl_FragColor = alpha * vec4(u_fogColor, 1.0) + (1.0 - alpha) * color; // goes from foggy to visible
-
-        if (u_reflection != 0.0) {
-            vec3 eyeCam = cameraPosition - worldPosition;
-            vec3 dirReflection = reflect (normalize(eyeCam), normalize(v_normW));
-
-            vec4 c_reflection= textureCube(u_texture1, dirReflection);
-
-            vec4 c_own = gl_FragColor;
-
-            vec4 c_final = c_reflection * u_reflection + c_own * (1.0 - u_reflection);
-
-            c_final.a = 1.0;
-
-            gl_FragColor = c_final;
-        }
-
     }
 }

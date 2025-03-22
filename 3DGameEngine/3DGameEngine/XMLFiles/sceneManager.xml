@@ -107,7 +107,7 @@
 		</comment>
 		<object id="1">
 			<model>1</model>
-			<shader>10</shader>
+			<shader>6</shader>
 			<type>normal</type>
 			<name>Crocodil_verde</name>
 			<textures>
@@ -129,7 +129,7 @@
 				<z>1.0</z>
 			</scale>
 			<reflection>
-				<value>0</value>
+				<value>0.0</value>
 				<texture id="18"></texture>
 			</reflection>
 			<!--
