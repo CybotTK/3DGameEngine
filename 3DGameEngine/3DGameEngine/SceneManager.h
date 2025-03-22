@@ -67,6 +67,8 @@ public:
 
 	float fogSmallRadius;
 	float fogBigRadius;
+
+	std::vector<Texture*> reflectionTextures;
 private:
 
 	std::vector<int> lights;

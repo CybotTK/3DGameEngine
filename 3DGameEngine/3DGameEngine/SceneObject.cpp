@@ -27,6 +27,8 @@ SceneObject::~SceneObject()
 
 void SceneObject::sendCommonData()
 {
+	objectName;
+
 	Matrix translationMatrix;
 	Matrix rotationMatrix;
 	Matrix rotationMatrixX, rotationMatrixY, rotationMatrixZ;
@@ -80,6 +82,12 @@ void SceneObject::sendCommonData()
 		glVertexAttribPointer(shader->positionAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
 	}
 
+	if (shader->normAttribute != -1)
+	{
+		glEnableVertexAttribArray(shader->normAttribute);
+		glVertexAttribPointer(shader->normAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, norm));
+	}
+
 	if (shader->modelMatrixUniform != -1) {
 		glUniformMatrix4fv(shader->modelMatrixUniform, 1, GL_FALSE, (float*)modelMatrix.m);
 	}
@@ -114,6 +122,16 @@ void SceneObject::sendCommonData()
 		glUniform3f(shader->fogColorUniform, 0.235294f, 0.2666666f, 0.3333333f); // same color as horizon
 	}
 
+	if (shader->reflectionUniform != -1) {
+		glUniform1f(shader->reflectionUniform, reflection);
+		if (reflection != 0.0) {
+			glActiveTexture(GL_TEXTURE0 + 1);
+			glBindTexture(reflectionTexture->m_textureResource->type, reflectionTexture->GetTextureId());
+
+			glUniform1i(shader->textureUniforms[1], 1);
+		}
+	}
+
 	if (!glIsBuffer(modelEboId)) {
 		std::cerr << "No valid EBO bound!" << std::endl;
 	}
@@ -128,12 +146,17 @@ void SceneObject::Draw()
 {
 	if (enableDepthTest == true) {
 		glEnable(GL_DEPTH_TEST);
-		glDisable(GL_BLEND);
 	}
 	else {
 		glDisable(GL_DEPTH_TEST);
+	}
+
+	if (enableBlend == true) {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	}
+	else {
+		glDisable(GL_BLEND);
 	}
 
 	glUseProgram(shader->GetProgram());

@@ -164,6 +164,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Fire.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="3DGameEngine.cpp" />
@@ -183,6 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Fire.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ResourceManager.h" />
@@ -199,6 +201,8 @@
   <ItemGroup>
     <None Include="..\Resources\Shaders\CameraShaderFS.fs" />
     <None Include="..\Resources\Shaders\CameraShaderVS.vs" />
+    <None Include="..\Resources\Shaders\FireFS.fs" />
+    <None Include="..\Resources\Shaders\FireVS.vs" />
     <None Include="..\Resources\Shaders\LineShaderFS.fs" />
     <None Include="..\Resources\Shaders\LineShaderVS.vs" />
     <None Include="..\Resources\Shaders\ModelShaderFS.fs" />

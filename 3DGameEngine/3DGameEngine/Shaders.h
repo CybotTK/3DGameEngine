@@ -17,6 +17,7 @@ public:
 	char fileFS[260];
 
 	GLint positionAttribute;
+	GLint normAttribute;
 	GLint colorAttribute;
 	GLint uvAttribute;
 	GLint uv2Attribute;
@@ -33,6 +34,12 @@ public:
 	GLint fogSmallRadiusUniform;
 	GLint fogBigRadiusUniform;
 	GLint fogColorUniform;
+
+	// Uniforms for fire
+	GLint dispMaxUniform;
+	GLint timeUniform;
+
+	GLint reflectionUniform;
 
 	~Shader();
 

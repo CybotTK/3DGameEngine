@@ -53,7 +53,12 @@ public:
 	Vector3 offsetCamera;
 
 	bool enableDepthTest = true;
+	bool enableBlend = false;
 	bool isWired = false;
+
+	// 0 means no reflection
+	float reflection = 0.f; // Value between 0 and 1 
+	Texture* reflectionTexture;
 
 	int countIndices;
 	GLuint modelVboId, modelEboId, modelTextureId;

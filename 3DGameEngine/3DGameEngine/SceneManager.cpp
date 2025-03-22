@@ -4,6 +4,7 @@
 #include "ResourceManager.h"
 #include "Terrain.h"
 #include "SkyBox.h"
+#include "Fire.h"
 
 SceneManager* SceneManager::singletonInstance = nullptr;
 
@@ -11,15 +12,13 @@ SceneManager::SceneManager() {
 
 }
 
-SceneManager::~SceneManager()
-{
+SceneManager::~SceneManager() {
 	CLEANUP_MAP(m_cameras);
 	CLEANUP_MAP(sceneObjects);
 	delete m_resourceManager;
 }
 
-SceneManager* SceneManager::GetInstance()
-{
+SceneManager* SceneManager::GetInstance() {
 	if (!singletonInstance)
 	{
 		singletonInstance = new SceneManager();
@@ -28,17 +27,14 @@ SceneManager* SceneManager::GetInstance()
 	return singletonInstance;
 }
 
-void SceneManager::Method()
-{
+void SceneManager::Method() {
 }
 
-void SceneManager::ParseXML()
-{
+void SceneManager::ParseXML() {
 
 }
 
-void SceneManager::InitializeWindow()
-{
+void SceneManager::InitializeWindow() {
 	rapidxml::file<> file("XMLFiles/sceneManager.xml");
 	char* buffer = file.data();
 
@@ -198,6 +194,22 @@ void SceneManager::Initialize()
 
 #pragma endregion
 
+#pragma region ReflectedTextures
+	
+	rapidxml::xml_node<>* reflectedTexturesNode = root->first_node("reflectedTextures");
+
+	if (reflectedTexturesNode) {
+		for (rapidxml::xml_node<>* textureNode = reflectedTexturesNode->first_node("texture");
+			textureNode;
+			textureNode = textureNode->next_sibling("texture")
+			) {
+			int textureId = std::stoi(textureNode->first_attribute("id")->value());
+			m_resourceManager->LoadTexture(m_resourceManager->textureResourcesUnloaded[textureId]);
+		}
+	}
+
+#pragma endregion
+
 #pragma region Objects
 
 	rapidxml::xml_node<>* objectsNode = root->first_node("objects");
@@ -255,7 +267,19 @@ void SceneManager::Initialize()
 				int modelId = std::stoi(objectNode->first_node("model")->value());
 				newSceneObject->model =
 					m_resourceManager->LoadModel(m_resourceManager->modelResourcesUnloaded[modelId]);
+			}
 
+			if (typeString == "fire") {
+				newSceneObject = new Fire;
+
+				newSceneObject->type = newSceneObject->NORMAL;
+
+				int modelId = std::stoi(objectNode->first_node("model")->value());
+				newSceneObject->model =
+					m_resourceManager->LoadModel(m_resourceManager->modelResourcesUnloaded[modelId]);
+				
+				((Fire*)newSceneObject)->u_DispMax =
+					std::stof(objectNode->first_node("dispMax")->value());
 			}
 
 			newSceneObject->objectId = id;
@@ -322,6 +346,18 @@ void SceneManager::Initialize()
 				}
 
 				newSceneObject->offsetCamera = newSceneObject->position;
+			}
+
+			rapidxml::xml_node<>* blendNode = objectNode->first_node("blend");
+			if (blendNode) {
+				newSceneObject->enableBlend = true;
+			}
+
+			rapidxml::xml_node<>* reflectionNode = objectNode->first_node("reflection");
+			if (reflectionNode) {
+				newSceneObject->reflection = std::stof(reflectionNode->first_node("value")->value());
+				int reflTexId = std::stoi(reflectionNode->first_node("texture")->first_attribute("id")->value());
+				newSceneObject->reflectionTexture = m_resourceManager->textureResourcesLoaded[reflTexId];
 			}
 
 			sceneObjects[id] = newSceneObject;

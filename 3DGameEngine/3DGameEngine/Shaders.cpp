@@ -32,6 +32,8 @@ int Shader::Load()
 	//finding location of uniforms / attributes
 	positionAttribute = glGetAttribLocation(programId, "a_posL");
 	error = glGetError();
+	normAttribute = glGetAttribLocation(programId, "a_normL");
+	error = glGetError();
 	colorAttribute = glGetAttribLocation(programId, "a_colorL");
 	error = glGetError();
 	uvAttribute = glGetAttribLocation(programId, "a_uv");
@@ -65,6 +67,10 @@ int Shader::Load()
 	fogColorUniform = glGetUniformLocation(programId, "u_fogColor");
 	error = glGetError();
 	
+	dispMaxUniform = glGetUniformLocation(programId, "u_DispMax");
+	timeUniform = glGetUniformLocation(programId, "u_Time");
+
+	reflectionUniform = glGetUniformLocation(programId, "u_reflection");
 	return 0;
 }
 

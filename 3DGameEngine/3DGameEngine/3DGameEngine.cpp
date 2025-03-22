@@ -21,7 +21,6 @@
 
 #define PI 3.14
 
-
 GLuint vboId, eboId,
 lineVboId,
 terrainModelVboId, terrainModelEboId, modelTextureId;
@@ -47,12 +46,10 @@ int Init ( ESContext *esContext )
 	std::vector<unsigned short> modelIndicesData;
 
 	glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f );
-	
-	///TESTING RESOURCE MANAGER
+
 	resourceManager = ResourceManager::GetInstance();
 	resourceManager->Initialize();
 
-	//TESTING SCENE MANAGER
 	sceneManager->m_resourceManager = resourceManager;
 	sceneManager->Initialize();
 
