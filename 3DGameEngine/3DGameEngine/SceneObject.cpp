@@ -124,12 +124,114 @@ void SceneObject::sendCommonData()
 
 	if (shader->reflectionUniform != -1) {
 		glUniform1f(shader->reflectionUniform, reflection);
-		if (reflection != 0.0) {
-			glActiveTexture(GL_TEXTURE0 + 1);
-			glBindTexture(reflectionTexture->m_textureResource->type, reflectionTexture->GetTextureId());
+		glActiveTexture(GL_TEXTURE0 + 1);
+		glBindTexture(reflectionTexture->m_textureResource->type, reflectionTexture->GetTextureId());
 
-			glUniform1i(shader->textureUniforms[1], 1);
+		glUniform1i(shader->textureUniforms[1], 1);
+	}
+
+	if (shader->ambiLightUniform != -1) {
+		Vector3 ambiLight = SceneManager::GetInstance()->ambiLight;
+		glUniform3f(shader->ambiLightUniform, ambiLight.x, ambiLight.y, ambiLight.z);
+	}
+
+	if (shader->ratioAmbiLightUniform != -1) {
+		glUniform1f(shader->ratioAmbiLightUniform, SceneManager::GetInstance()->ratioAmbiLight);
+	}
+
+	if (shader->numLightsUniform != -1) {
+		glUniform1i(shader->numLightsUniform, numLights);
+	}
+
+	if (shader->lightDirUniform != -1) {
+		Vector3 lightsDirArr[10];
+		for (int i = 0; i < numLights; i++) {
+			lightsDirArr[i] = SceneManager::GetInstance()->lights[lightsId[i]]->direction;
 		}
+		glUniform3fv(shader->lightDirUniform, numLights, &lightsDirArr[0].x);
+	}
+
+	if (shader->lightPosUniform != -1) {
+		Vector3 lightsPosArray[10];
+		for (int i = 0; i < numLights; i++) {
+			lightsPosArray[i] = SceneManager::GetInstance()->lights[lightsId[i]]->position;
+		}
+		glUniform3fv(shader->lightPosUniform, numLights, &lightsPosArray[0].x);
+	}
+
+	if (shader->colorLightDiffUniform != -1) {
+		Vector3 colorLightDiffArr[10];
+		for (int i = 0; i < numLights; i++) {
+			colorLightDiffArr[i] = SceneManager::GetInstance()->lights[lightsId[i]]->diffuseColor;
+		}
+		glUniform3fv(shader->colorLightDiffUniform, numLights, &colorLightDiffArr[0].x);
+	}
+
+	if (shader->colorLightSpecUniform != -1) {
+		Vector3 colorLightSpecArr[10];
+		for (int i = 0; i < numLights; i++) {
+			colorLightSpecArr[i] = SceneManager::GetInstance()->lights[lightsId[i]]->specularColor;
+		}
+		glUniform3fv(shader->colorLightSpecUniform, numLights, &colorLightSpecArr[0].x);
+	}
+	
+	if (shader->specPowerUniform != -1) {
+		float specPowArr[10];
+		for (int i = 0; i < numLights; i++) {
+			specPowArr[i] = SceneManager::GetInstance()->lights[lightsId[i]]->specularPower;
+		}
+		glUniform1fv(shader->specPowerUniform, numLights, &specPowArr[0]);
+	}
+
+	if (shader->lightTypeUniform != -1) {
+		int lightType[10];
+		auto lightsArray = SceneManager::GetInstance()->lights;
+		for (int i = 0; i < numLights; i++) {
+			if (lightsArray[lightsId[i]]->type == Light::LightType::DIRECTIONAL) {
+				lightType[i] = 0;
+			}
+			else if (lightsArray[lightsId[i]]->type == Light::LightType::POINT) {
+				lightType[i] = 1;
+			}
+			else {
+				lightType[i] = 2;
+			}
+		}
+		glUniform1iv(shader->lightTypeUniform, numLights, &lightType[0]);
+	}
+
+	if (shader->lightRangeUniform != -1) {
+		float rangeArray[10];
+		for (int i = 0; i < numLights; i++) {
+			rangeArray[i] = SceneManager::GetInstance()->lights[lightsId[i]]->range;
+		}
+		glUniform1fv(shader->lightRangeUniform, numLights, &rangeArray[0]);
+	}
+
+	if (shader->outerAngleUniform != -1) {
+		float outerAngleArr[10];
+		auto lightsArray = SceneManager::GetInstance()->lights;
+		for (int i = 0; i < numLights; i++) {
+			outerAngleArr[i] = Radians(lightsArray[lightsId[i]]->outerAngle);
+		}
+		glUniform1fv(shader->outerAngleUniform, numLights, &outerAngleArr[0]);
+	}
+
+	if (shader->innerAngleUniform != -1) {
+		float innerAngleArr[10];
+		auto lightsArray = SceneManager::GetInstance()->lights;
+		for (int i = 0; i < numLights; i++) {
+			innerAngleArr[i] = Radians(lightsArray[lightsId[i]]->innerAngle);
+		}
+		glUniform1fv(shader->outerAngleUniform, numLights, &innerAngleArr[0]);
+	}
+
+	if (shader->kDiffUniform != -1) {
+		glUniform1f(shader->kDiffUniform, kDiff);
+	}
+
+	if (shader->kSpecUniform != -1) {
+		glUniform1f(shader->kSpecUniform, kSpec);
 	}
 
 	if (!glIsBuffer(modelEboId)) {

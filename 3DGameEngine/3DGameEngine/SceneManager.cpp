@@ -360,7 +360,114 @@ void SceneManager::Initialize()
 				newSceneObject->reflectionTexture = m_resourceManager->textureResourcesLoaded[reflTexId];
 			}
 
+			rapidxml::xml_node<>* lightsNode = objectNode->first_node("lights");
+			if (lightsNode) {
+				for (rapidxml::xml_node<>* lightNode = lightsNode->first_node("light");
+					lightNode;
+					lightNode = lightNode->next_sibling("light")
+					) {
+					newSceneObject->lightsId[newSceneObject->numLights++]= std::stoi(lightNode->value());
+				}
+			}
+
+			rapidxml::xml_node<>* kDiffNode = objectNode->first_node("kDiff");
+			rapidxml::xml_node<>* kSpecNode = objectNode->first_node("kSpec");
+
+			if (kDiffNode){
+				newSceneObject->kDiff = std::stof(kDiffNode->value());
+			}
+			if (kSpecNode){
+				newSceneObject->kSpec = std::stof(kSpecNode->value());
+			}
+
 			sceneObjects[id] = newSceneObject;
+		}
+	}
+
+#pragma endregion
+
+#pragma region Lights
+
+	rapidxml::xml_node<>* ambiLightNode = root->first_node("ambientalLight");
+	if (ambiLightNode) {
+		rapidxml::xml_node<>* colorNode = ambiLightNode->first_node("color");
+		ambiLight.x = std::stof(colorNode->first_node("r")->value());
+		ambiLight.y = std::stof(colorNode->first_node("g")->value());
+		ambiLight.z = std::stof(colorNode->first_node("b")->value());
+
+		ratioAmbiLight = std::stof(ambiLightNode->first_node("ratio")->value());
+	}
+
+	rapidxml::xml_node<>* lightsNode = root->first_node("lights");
+	if (lightsNode) {
+		for (rapidxml::xml_node<>* lightNode = lightsNode->first_node("light");
+			lightNode;
+			lightNode = lightNode->next_sibling("light")
+			) {
+			Light* light = new Light;
+			int lightId = std::stoi(lightNode->first_attribute("id")->value());
+
+			rapidxml::xml_node<>* aObjIdNode = lightNode->first_node("associatedObject");
+			if (aObjIdNode) {
+				light->associatedObjectId = std::stoi(aObjIdNode->value());
+
+				light->position = sceneObjects[light->associatedObjectId]->position;
+			}
+
+			rapidxml::xml_node<>* directionNode = lightNode->first_node("direction");
+			if (directionNode) {
+				light->direction.x = std::stof(directionNode->first_node("x")->value());
+				light->direction.y = std::stof(directionNode->first_node("y")->value());
+				light->direction.z = std::stof(directionNode->first_node("z")->value());
+			}
+
+			rapidxml::xml_node<>* positionNode = lightsNode->first_node("position");
+			if (positionNode) {
+				light->position.x = std::stof(positionNode->first_node("x")->value());
+				light->position.y = std::stof(positionNode->first_node("y")->value());
+				light->position.z = std::stof(positionNode->first_node("z")->value());
+			}
+
+			rapidxml::xml_node<>* rangeNode = lightNode->first_node("range");
+			if (rangeNode) {
+				light->range = std::stof(rangeNode->value());
+			}
+
+			rapidxml::xml_node<>* diffuseColorNode = lightNode->first_node("diffuseColor");
+			light->diffuseColor.x = std::stof(diffuseColorNode->first_node("r")->value());
+			light->diffuseColor.y = std::stof(diffuseColorNode->first_node("g")->value());
+			light->diffuseColor.z = std::stof(diffuseColorNode->first_node("b")->value());
+
+			rapidxml::xml_node<>* specularColorNode = lightNode->first_node("specularColor");
+			light->specularColor.x = std::stof(specularColorNode->first_node("r")->value());
+			light->specularColor.y = std::stof(specularColorNode->first_node("g")->value());
+			light->specularColor.z = std::stof(specularColorNode->first_node("b")->value());
+
+			std::string lightType = lightNode->first_node("type")->value();
+			if (lightType == "directional") {
+				light->type = Light::LightType::DIRECTIONAL;
+			}
+			else if (lightType == "point") {
+				light->type = Light::LightType::POINT;
+			}
+			else {
+				light->type = Light::LightType::SPOTLIGHT;
+			}
+
+			rapidxml::xml_node<>* spotOuterAngleNode = lightNode->first_node("spotOuterAngle");
+			rapidxml::xml_node<>* spotInnerAngleNode = lightNode->first_node("spotInnerAngle");
+
+			if (spotOuterAngleNode) {
+				light->outerAngle = std::stof(spotOuterAngleNode->value());
+				light->innerAngle = std::stof(spotInnerAngleNode->value());
+			}
+
+			rapidxml::xml_node<>* specPowNode = lightNode->first_node("specularPower");
+			if (specPowNode) {
+				light->specularPower = std::stof(specPowNode->value());
+			}
+
+			lights[lightId] = light;
 		}
 	}
 

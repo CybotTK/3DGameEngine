@@ -41,6 +41,22 @@ public:
 
 	GLint reflectionUniform;
 
+	//Light uniforms
+	GLint ambiLightUniform;
+	GLint ratioAmbiLightUniform;
+	GLint numLightsUniform;
+	GLint lightDirUniform;
+	GLint lightPosUniform;
+	GLint colorLightDiffUniform;
+	GLint colorLightSpecUniform;
+	GLint specPowerUniform;
+	GLint lightTypeUniform;
+	GLint lightRangeUniform;
+	GLint outerAngleUniform;
+	GLint innerAngleUniform;
+	GLint kSpecUniform;
+	GLint kDiffUniform;
+
 	~Shader();
 
 	int Load();

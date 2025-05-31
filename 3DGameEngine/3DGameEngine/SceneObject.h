@@ -22,6 +22,8 @@ public:
 	virtual void Update(float deltaTime);
 
 	int objectId; //objectId from XML
+	int lightsId[10];
+	int numLights = 0;
 
 	std::string objectName;
 	
@@ -64,6 +66,10 @@ public:
 	GLuint modelVboId, modelEboId, modelTextureId;
 
 	Matrix modelMatrix;
+
+	// reflection
+	float kSpec = 1.0;
+	float kDiff = 1.0;
 private:
 };
 

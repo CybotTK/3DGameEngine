@@ -107,15 +107,15 @@
 		</comment>
 		<object id="1">
 			<model>1</model>
-			<shader>6</shader>
+			<shader>10</shader>
 			<type>normal</type>
 			<name>Crocodil_verde</name>
 			<textures>
 				<texture id="4"/>
 			</textures>
 			<position>
-				<x>20.5</x>
-				<y>27</y>
+				<x>40</x>
+				<y>30</y>
 				<z>21.22</z>
 			</position>
 			<rotation>
@@ -151,10 +151,13 @@
 				</endPoint>
 				<speed>0.1</speed>
 			</trajectory>
-			<lights>
-				<light>1</light>
-			</lights>
 			-->
+			<lights>
+				<light>3</light>
+			</lights>
+
+			<!--<kDiff>1</kDiff>
+			<kSpec>0.5</kSpec>-->
 		</object>
 		
 		<object id="3">
@@ -166,7 +169,7 @@
 			</textures>
 			<name>Bus</name>
 			<position>
-				<x>0</x>
+				<x>100</x>
 				<y>0</y>
 				<z>0</z>
 			</position>
@@ -199,10 +202,10 @@
 				</endPoint>
 				<speed>0.1</speed>
 			</trajectory>
+			-->
 			<lights>
 				<light>1</light>
 			</lights>
-			-->
 		</object>
 		<object id="8">
 			<model>generated</model>
@@ -238,6 +241,9 @@
 				<y>1.0</y>
 				<z>1.0</z>
 			</scale>
+			<lights>
+				<light>1</light>
+			</lights>
 		</object>
 		<object id="9">
 			<model>4</model>
@@ -278,7 +284,7 @@
 				<texture id="21"/>
 			</textures>
 			<position>
-				<x>0</x>
+				<x>20</x>
 				<y>-5</y>
 				<z>-20</z>
 			</position>
@@ -298,9 +304,8 @@
 	</objects>
 	<fog>
 		<smallRadius>1</smallRadius>
-		<bigRadius>250</bigRadius>
+		<bigRadius>5000</bigRadius>
 	</fog>
-	<!--
 	<ambientalLight>
 		<color>
 			<r>1.0</r>
@@ -309,10 +314,17 @@
 		</color>
 		<ratio>0.2</ratio>
 	</ambientalLight>
-	
 	<lights>
 		<light id="1">
-			<associatedObject>2</associatedObject>
+			<!--
+			<associatedObject>10</associatedObject>
+			only for point/spotlight
+			-->
+			<direction>
+				<x>-1.0</x>
+				<y>-1.0</y>
+				<z>0.0</z>
+			</direction>
 			<diffuseColor>
 				<r>1.0</r>
 				<g>1.0</g>
@@ -323,10 +335,65 @@
 				<g>1.0</g>
 				<b>1.0</b>
 			</specularColor>
+			<specularPower>2</specularPower>
+			<type>directional</type>
+		</light>
+		<light id="2">
+			<!--
+			<associatedObject>10</associatedObject>
+			only for point/spotlight
+			-->
+			<position>
+				<x>100</x>
+				<y>30</y>
+				<z>0</z>
+			</position>
+			<range>400</range>
+			<diffuseColor>
+				<r>1.0</r>
+				<g>1.0</g>
+				<b>1.0</b>
+			</diffuseColor>
+			<specularColor>
+				<r>1.0</r>
+				<g>1.0</g>
+				<b>1.0</b>
+			</specularColor>
+			<specularPower>2</specularPower>
 			<type>point</type>
 		</light>
+		<light id="3">
+			<!--
+			<associatedObject>10</associatedObject>
+			only for point/spotlight
+			-->
+			<direction>
+				<x>0.0</x>
+				<y>-1.0</y>
+				<z>0.0</z>
+			</direction>
+			<position>
+				<x>40</x>
+				<y>100</y>
+				<z>21.22</z>
+			</position>
+			<diffuseColor>
+				<r>1.0</r>
+				<g>1.0</g>
+				<b>1.0</b>
+			</diffuseColor>
+			<specularColor>
+				<r>1.0</r>
+				<g>1.0</g>
+				<b>1.0</b>
+			</specularColor>
+			<spotOuterAngle>100</spotOuterAngle>
+			<spotInnerAngle>50</spotInnerAngle>
+			<range>400</range>
+			<specularPower>2</specularPower>
+			<type>spotlight</type>
+		</light>
 	</lights>
-	-->
 	<debugSettings>
 		<objectAxes>
 			<OXColor>

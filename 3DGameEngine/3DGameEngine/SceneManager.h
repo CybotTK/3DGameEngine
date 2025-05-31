@@ -3,6 +3,7 @@
 
 #include "Camera.h"
 #include "SceneObject.h"
+#include "Light.h"
 
 #include <unordered_map>
 #include <vector>
@@ -69,9 +70,12 @@ public:
 	float fogBigRadius;
 
 	std::vector<Texture*> reflectionTextures;
-private:
 
-	std::vector<int> lights;
+	std::unordered_map<int, Light*> lights;
+	Vector3 ambiLight; // color
+	float ratioAmbiLight;
+
+private:
 
 	static SceneManager* singletonInstance;
 	SceneManager();

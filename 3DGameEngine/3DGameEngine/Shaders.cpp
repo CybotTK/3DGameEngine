@@ -52,25 +52,41 @@ int Shader::Load()
 		textureUniforms[count] = glGetUniformLocation(programId, uTexturePointer);
 	}
 
-	wireframeUniform = glGetUniformLocation(programId, "u_wireframe");
+	wireframeUniform	= glGetUniformLocation(programId, "u_wireframe");
 	error = glGetError();
-	heightUniform = glGetUniformLocation(programId, "u_height");
+	heightUniform		= glGetUniformLocation(programId, "u_height");
 	error = glGetError();
 
 	cameraPositionUniform = glGetUniformLocation(programId, "uCameraPosition");
 	error = glGetError();
 
-	fogSmallRadiusUniform = glGetUniformLocation(programId, "u_fogSmallRadius");
+	fogSmallRadiusUniform	= glGetUniformLocation(programId, "u_fogSmallRadius");
 	error = glGetError();
-	fogBigRadiusUniform = glGetUniformLocation(programId, "u_fogBigRadius");
+	fogBigRadiusUniform		= glGetUniformLocation(programId, "u_fogBigRadius");
 	error = glGetError();
-	fogColorUniform = glGetUniformLocation(programId, "u_fogColor");
+	fogColorUniform			= glGetUniformLocation(programId, "u_fogColor");
 	error = glGetError();
 	
-	dispMaxUniform = glGetUniformLocation(programId, "u_DispMax");
-	timeUniform = glGetUniformLocation(programId, "u_Time");
+	dispMaxUniform	= glGetUniformLocation(programId, "u_DispMax");
+	timeUniform		= glGetUniformLocation(programId, "u_Time");
 
 	reflectionUniform = glGetUniformLocation(programId, "u_reflection");
+
+	ambiLightUniform		= glGetUniformLocation(programId, "u_ambiLight");
+	ratioAmbiLightUniform	= glGetUniformLocation(programId, "u_ratioAmbiLight");
+	numLightsUniform		= glGetUniformLocation(programId, "u_numLights");
+	lightDirUniform			= glGetUniformLocation(programId, "u_lightDir");
+	lightPosUniform			= glGetUniformLocation(programId, "u_lightPos");
+	colorLightDiffUniform	= glGetUniformLocation(programId, "u_colorLightDiff");
+	colorLightSpecUniform	= glGetUniformLocation(programId, "u_colorLightSpec");
+	specPowerUniform		= glGetUniformLocation(programId, "u_specPower");
+	lightTypeUniform		= glGetUniformLocation(programId, "u_lightType");
+	lightRangeUniform		= glGetUniformLocation(programId, "u_lightRange");
+	innerAngleUniform		= glGetUniformLocation(programId, "u_spotInnerAngle");
+	outerAngleUniform		= glGetUniformLocation(programId, "u_spotOuterAngle");
+	kSpecUniform			= glGetUniformLocation(programId, "u_kSpec");
+	kDiffUniform			= glGetUniformLocation(programId, "u_kDiff");
+
 	return 0;
 }
 

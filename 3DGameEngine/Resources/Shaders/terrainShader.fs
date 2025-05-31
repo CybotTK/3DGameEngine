@@ -14,6 +14,7 @@ uniform sampler2D u_texture0;
 uniform sampler2D u_texture1;
 uniform sampler2D u_texture2;
 uniform sampler2D u_texture3;
+
 uniform float u_fogSmallRadius;
 uniform float u_fogBigRadius;
 uniform vec3 u_fogColor;
