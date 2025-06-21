@@ -181,6 +181,10 @@ Vector3 & Vector3::operator = (Vector3 & vector)
 	return *this;
 }
 
+bool Vector3::operator==(Vector3& vector) {
+	return x == vector.x && y == vector.y && z == vector.z;
+}
+
 GLfloat Vector3::operator [] (unsigned int idx)
 {
 	return (&x)[idx];
@@ -667,4 +671,18 @@ Vector3 ToVector3(Vector4 vec)
 GLfloat Radians(GLfloat degrees)
 {
 	return degrees * (PI / 180.f);
+}
+
+void Lerp(Vector3& currentPoint, Vector3 endPoint, float speed, float deltaTime) {
+	Vector3 target = endPoint - currentPoint;
+
+	float distance = target.Length();
+	float maxStep = speed * deltaTime;
+
+	if (distance <= maxStep) {
+		currentPoint = endPoint;
+	}
+	else {
+		currentPoint = currentPoint + target.Normalize() * maxStep;
+	}
 }

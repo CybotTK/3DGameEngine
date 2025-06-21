@@ -13,6 +13,7 @@ varying vec3 cameraPosition;
 // Uniform variables
 uniform sampler2D u_texture0;
 uniform bool u_wireframe; // Toggle wireframe mode
+uniform bool u_debug;
 
 uniform float u_fogSmallRadius;
 uniform float u_fogBigRadius;
@@ -113,4 +114,7 @@ void main()
         gl_FragColor = alpha * vec4(u_fogColor, 1.0) + (1.0 - alpha) * c_light;
     }
 
+    if (u_debug == true) {
+
+    }
 }

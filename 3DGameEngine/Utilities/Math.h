@@ -70,6 +70,7 @@ public:
 	Vector3 operator / (GLfloat k);
 	Vector3 & operator /= (GLfloat k);
 	Vector3 & operator = (Vector3 & vector);
+	bool	operator == (Vector3& vector);
 	Vector3 Modulate(Vector3 & vector);
 	GLfloat Dot(Vector3 & vector);
 	Vector3 Cross(Vector3 & vector);
@@ -185,6 +186,8 @@ public:
 	GLfloat m[4][4];
 };
 
-float Radians(float degrees);
+GLfloat Radians(GLfloat degrees);
 Vector3 ToVector3(Vector4 vec4);
 Vector4 ToVector4(Vector3 vec3);
+
+void Lerp(Vector3& currentPoint, Vector3 endPoint, float speed, float deltaTime);

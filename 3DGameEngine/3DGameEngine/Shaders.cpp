@@ -1,7 +1,6 @@
 #include <stdafx.h>
 #include "Shaders.h"
 
-
 Shader::~Shader()
 {
 	glDeleteProgram(programId);
@@ -87,6 +86,8 @@ int Shader::Load()
 	kSpecUniform			= glGetUniformLocation(programId, "u_kSpec");
 	kDiffUniform			= glGetUniformLocation(programId, "u_kDiff");
 
+	debugUniform			= glGetUniformLocation(programId, "u_debug");
+	
 	return 0;
 }
 

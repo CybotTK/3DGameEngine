@@ -5,6 +5,7 @@
 #include "Terrain.h"
 #include "SkyBox.h"
 #include "Fire.h"
+#include "Trajectory.h"
 
 SceneManager* SceneManager::singletonInstance = nullptr;
 
@@ -225,10 +226,11 @@ void SceneManager::Initialize()
 			SceneObject* newSceneObject;
 
 			std::string typeString = objectNode->first_node("type")->value();
-
+			
+			
 			if (typeString == "normal") {
 				newSceneObject = new SceneObject;
-
+				
 				newSceneObject->type = newSceneObject->NORMAL;
 
 				int modelId = std::stoi(objectNode->first_node("model")->value());
@@ -380,10 +382,104 @@ void SceneManager::Initialize()
 				newSceneObject->kSpec = std::stof(kSpecNode->value());
 			}
 
+
 			sceneObjects[id] = newSceneObject;
 		}
 	}
 
+#pragma endregion
+
+#pragma region Trajectory
+
+	rapidxml::xml_node<>* trajectoryNode = root->first_node("trajectory");
+	Trajectory* traj = new Trajectory;
+
+	rapidxml::xml_node<>* startPointNode = trajectoryNode->first_node("startPoint");
+
+	if (startPointNode) {
+		traj->startPoint.x = std::stof(startPointNode->first_node("x")->value());
+		traj->startPoint.y = std::stof(startPointNode->first_node("y")->value());
+		traj->startPoint.z = std::stof(startPointNode->first_node("z")->value());
+		traj->currentPos = traj->startPoint;
+	}
+
+	rapidxml::xml_attribute<>* typeAttr = trajectoryNode->first_attribute("type");
+	rapidxml::xml_attribute<>* iterationAttr = trajectoryNode->first_attribute("iteration");
+	rapidxml::xml_attribute<>* directionAttr = trajectoryNode->first_attribute("direction");
+	std::string typeString = typeAttr->value();
+	std::string iterString = iterationAttr->value();
+	std::string dirString = directionAttr->value();
+
+	if (typeString == "linear") {
+		traj->type = Trajectory::LINEAR;
+	}
+	else if (typeString == "line_strip") {
+		traj->type = Trajectory::LINE_STRIP;
+	}
+	else if (typeString == "line_loop") {
+		traj->type = Trajectory::LINE_LOOP;
+	}
+	else if (typeString == "circle") {
+		traj->type = Trajectory::CIRCLE;
+	}
+
+	if (iterationAttr) {
+		if (iterString == "infinite") {
+			traj->iterationCount = -1;
+		}
+		else {
+			traj->iterationCount = std::stoi(iterationAttr->value());
+		}
+	}
+
+	if (directionAttr) {
+		if (dirString == "normal") {
+			traj->direction = Trajectory::NORMAL;
+		}
+		else if (dirString == "alternate") {
+			traj->direction = Trajectory::BACK_FORTH;
+		}
+	}
+	else {
+		traj->direction = Trajectory::NORMAL;
+	}
+
+	if (trajectoryNode->first_node("speed")) {
+		traj->speed = std::stof(trajectoryNode->first_node("speed")->value());
+	}
+
+	rapidxml::xml_node<>* pointsNode = trajectoryNode->first_node("points");
+	for (rapidxml::xml_node<>* pointNode = pointsNode->first_node("point");
+		pointNode;
+		pointNode = pointNode->next_sibling("point")
+		) {
+		Vector3 posPoint;
+		posPoint.x = std::stof(pointNode->first_node("x")->value());
+		posPoint.y = std::stof(pointNode->first_node("y")->value());
+		posPoint.z = std::stof(pointNode->first_node("z")->value());
+		traj->points.push_back(posPoint);
+	}
+	traj->nrPoints = traj->points.size();
+
+	rapidxml::xml_node<>* speedNode = trajectoryNode->first_node("speed");
+	if (speedNode) {
+		traj->speed = std::stof(speedNode->value());
+	}
+
+	rapidxml::xml_node<>* radiusNode = trajectoryNode->first_node("radius");
+	if (radiusNode) {
+		traj->radius = std::stof(radiusNode->value());
+	}
+
+	rapidxml::xml_node<>* trajObjectsNode = trajectoryNode->first_node("objects");
+	for (rapidxml::xml_node<>* idNode = trajObjectsNode->first_node("id");
+		idNode;
+		idNode = idNode->next_sibling("id")
+		) {
+		sceneObjects[std::stoi(idNode->value())]->traj = traj;
+		sceneObjects[std::stoi(idNode->value())]->hasTrajectory = true;
+		sceneObjects[std::stoi(idNode->value())]->Init();
+	}
 #pragma endregion
 
 #pragma region Lights

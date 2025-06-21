@@ -7,9 +7,9 @@
 #include "Shaders.h"
 #include "Texture.h"
 #include "Camera.h"
+#include "Trajectory.h"
 
-SceneObject::SceneObject()
-{
+SceneObject::SceneObject() {
 }
 
 SceneObject::~SceneObject()
@@ -23,6 +23,12 @@ SceneObject::~SceneObject()
 	delete model;
 	delete shader;
 	delete m_camera;
+}
+
+void SceneObject::Init() {
+	if (hasTrajectory == true) {
+		position = traj->startPoint;
+	}
 }
 
 void SceneObject::sendCommonData()
@@ -242,6 +248,15 @@ void SceneObject::sendCommonData()
 }
 
 void SceneObject::sendSpecificData() {
+	if (hasTrajectory == true) {
+		Matrix mvp = this->modelMatrix * this->m_camera->viewMatrix * this->m_camera->perspectiveMatrix;
+
+		mvp = traj->lerpTranslation * mvp;
+
+		if (this->shader->matrixUniform != -1) {
+			glUniformMatrix4fv(this->shader->matrixUniform, 1, GL_FALSE, (float*)mvp.m);
+		}
+	}
 }
 
 void SceneObject::Draw()
@@ -279,5 +294,8 @@ void SceneObject::Update(float deltaTime) {
 		if (this->followingCamera.z == 1) {
 			this->position.z = this->m_camera->position.z + this->offsetCamera.z;
 		}
+	}
+	if (hasTrajectory == true) {
+		traj->Update(deltaTime);
 	}
 }

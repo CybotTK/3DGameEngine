@@ -9,11 +9,14 @@ class Model;
 class Shader;
 class Texture;
 class Camera;
+class Trajectory;
 
 class SceneObject {
 public:
 	SceneObject();
 	virtual ~SceneObject();
+
+	void Init();
 
 	void sendCommonData();
 	virtual void sendSpecificData();
@@ -70,6 +73,10 @@ public:
 	// reflection
 	float kSpec = 1.0;
 	float kDiff = 1.0;
+
+	// trajectory
+	Trajectory* traj;
+	bool hasTrajectory = false;
 private:
 };
 

@@ -142,15 +142,6 @@
 				<oy/>
 				<oz/>
 			</followingCamera>
-			<trajectory type="linear" iteration="infinite" direction="alternate">
-				<comment>startPoint e chiar Pos</comment>
-				<endPoint>
-					<x>0.5</x>
-					<y>100.0</y>
-					<z>1.0</z>				
-				</endPoint>
-				<speed>0.1</speed>
-			</trajectory>
 			-->
 			<lights>
 				<light>3</light>
@@ -169,8 +160,8 @@
 			</textures>
 			<name>Bus</name>
 			<position>
-				<x>100</x>
-				<y>0</y>
+				<x>1000</x>
+				<y>100</y>
 				<z>0</z>
 			</position>
 			<rotation>
@@ -430,5 +421,28 @@
 			</OZColor>
 		</camAxes>
 	</debugSettings>
+
+	<trajectory type="circle" iteration="3" direction="alternate">
+		<comment>startPoint needs to be sepparated</comment>
+		<comment>if type is linear, points has only 1</comment>
+		<startPoint> <!-- becomes the center when trajectory is of type circle-->
+			<x>0.5</x>
+			<y>0.0</y>
+			<z>1.0</z>
+		</startPoint>
+		<points> <!--when type is circle these become rotation planes
+				  x y z are angles for respective axis-->
+			<point>
+				<x>10</x>
+				<y>10</y>
+				<z>10.0</z>
+			</point>
+		</points>
+		<speed>10</speed>
+		<radius>50</radius>
+		<objects>
+			<id>1</id>
+		</objects>
+	</trajectory>
 	
 </sceneManager>
