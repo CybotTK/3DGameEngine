@@ -338,8 +338,7 @@ void SceneObject::DrawAxes() {
 		glDrawElements(GL_TRIANGLES, m_sceneManagerInst->axesIndices.size(), GL_UNSIGNED_SHORT, 0);
 		};
 
-	//===============ALSO ASK ABOUT THIS
-	// if Z is okay on top and stuff about z being negative maybe=======///
+	//===============ALSO ASK ABOUT THIS=======///
 
 	// Draw Z axis (no rotation)
 	drawAxis(m_sceneManagerInst->objectAxes.oZ, Matrix::Identity());

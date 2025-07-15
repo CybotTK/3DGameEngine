@@ -54,6 +54,16 @@
 				<vs>ReflectionModelShadersVS.vs</vs>
 				<fs>ReflectionModelShadersFS.fs</fs>
 			</shader>
+
+			<shader id="98">
+				<fs>AxesShaderFS.fs</fs>
+				<vs>AxesShaderVS.vs</vs>
+			</shader>
+
+			<shader id="99">
+				<fs>DebugShaderFS.fs</fs>
+				<vs>DebugShaderVS.vs</vs>
+			</shader>
 		<!-- si aici se adauga toate shaderele -->
 		</folder>
 		

@@ -57,9 +57,6 @@ public:
 	GLint kSpecUniform;
 	GLint kDiffUniform;
 
-	//debug
-	GLint debugUniform;
-
 	~Shader();
 
 	int Load();

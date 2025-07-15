@@ -10,6 +10,7 @@ class Shader;
 class Texture;
 class Camera;
 class Trajectory;
+class SceneManager;
 
 class SceneObject {
 public:
@@ -29,6 +30,7 @@ public:
 	int numLights = 0;
 
 	std::string objectName;
+	SceneManager* m_sceneManagerInst;
 	
 	Vector3 position;
 	Vector3 rotation;
@@ -36,6 +38,11 @@ public:
 
 	Model* model;
 	Shader* shader;
+	
+	// Debugging
+	void DrawDebug();
+	void DrawAxes();
+
 	std::vector<Texture*> textures;
 
 	enum TypeOfModel {

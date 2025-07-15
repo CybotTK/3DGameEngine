@@ -146,6 +146,7 @@ public:
 	Matrix() {}
 	Matrix(GLfloat val);
 	Matrix(Matrix & mat);
+	static Matrix Identity();
 
 	// Matrix operations
 	Matrix & SetZero();
@@ -175,6 +176,7 @@ public:
 	Matrix &operator -= (Matrix & mat);
 
 	Matrix operator * (Matrix & mat);
+	Matrix operator * (const Matrix & mat);
 	Matrix operator * (GLfloat k);
 	Matrix & operator *= (GLfloat k);
 

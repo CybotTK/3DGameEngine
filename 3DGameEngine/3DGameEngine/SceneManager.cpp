@@ -6,11 +6,93 @@
 #include "SkyBox.h"
 #include "Fire.h"
 #include "Trajectory.h"
+#include "Shaders.h"
 
 SceneManager* SceneManager::singletonInstance = nullptr;
 
 SceneManager::SceneManager() {
+}
 
+void SceneManager::Init() {
+	// Axes
+	cylinderHeight = 10.f;
+	cylinderSegments = 20;
+	cylinderRadius = 1.f;
+	CreateAxes();
+}
+
+void SceneManager::CreateAxes() {
+	float halfHeight = cylinderHeight / 2.0f;
+
+	// --- Generate vertices ---
+
+	// Bottom + Top ring vertices
+	for (int segment = 0; segment <= cylinderSegments; ++segment) {
+		float angle = 2.0f * PI * segment / cylinderSegments;
+		float x = cylinderRadius * cos(angle);
+		float z = cylinderRadius * sin(angle);
+
+		// Bottom ring
+		axesVertices.push_back({ x, -halfHeight, z });
+		// Top ring
+		axesVertices.push_back({ x, +halfHeight, z });
+	}
+
+	unsigned short baseIndex = axesVertices.size();
+
+	// Center of top cap
+	Vector3 topCenter = { 0.0f, +halfHeight, 0.0f };
+	axesVertices.push_back(topCenter);
+	unsigned short topCenterIndex = baseIndex++;
+
+	// Center of bottom cap
+	Vector3 bottomCenter = { 0.0f, -halfHeight, 0.0f };
+	axesVertices.push_back(bottomCenter);
+	unsigned short bottomCenterIndex = baseIndex++;
+
+	// --- Generate side indices ---
+	for (unsigned short i = 0; i < cylinderSegments; ++i) {
+		unsigned short i0 = i * 2;
+		unsigned short i1 = i0 + 1;
+		unsigned short i2 = ((i + 1) % (cylinderSegments + 1)) * 2;
+		unsigned short i3 = i2 + 1;
+
+		// Two triangles per quad
+		axesIndices.push_back(i0); axesIndices.push_back(i2); axesIndices.push_back(i1);
+		axesIndices.push_back(i1); axesIndices.push_back(i2); axesIndices.push_back(i3);
+	}
+
+	// --- Generate top cap indices ---
+	for (unsigned short i = 0; i < cylinderSegments; ++i) {
+		unsigned short vi = i * 2 + 1;
+		unsigned short vi_next = ((i + 1) % (cylinderSegments + 1)) * 2 + 1;
+		axesIndices.push_back(topCenterIndex);
+		axesIndices.push_back(vi);
+		axesIndices.push_back(vi_next);
+	}
+
+	// --- Generate bottom cap indices ---
+	for (unsigned short i = 0; i < cylinderSegments; ++i) {
+		unsigned short vi = i * 2;
+		unsigned short vi_next = ((i + 1) % (cylinderSegments + 1)) * 2;
+		axesIndices.push_back(bottomCenterIndex);
+		axesIndices.push_back(vi_next);
+		axesIndices.push_back(vi);
+	}
+
+	int error;
+
+	glGenBuffers(1, &cylinderVboId);
+	error = glGetError();
+	glBindBuffer(GL_ARRAY_BUFFER, cylinderVboId);
+	glBufferData(GL_ARRAY_BUFFER, axesVertices.size() * sizeof(Vector3), &axesVertices[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glGenBuffers(1, &cylinderEboId);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cylinderEboId);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, axesIndices.size() * sizeof(unsigned short), axesIndices.data(), GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 SceneManager::~SceneManager() {
@@ -129,6 +211,12 @@ void SceneManager::Initialize()
 			}
 			if (stringValue == "VK_RIGHT") {
 				keyMapping[VK_RIGHT] = KeyAction::ROTATE_CAMERA_OY_NEGATIVE;
+			}
+			if (action == "DEBUG") {
+				keyMapping[keyControl] = KeyAction::DEBUG;
+			}
+			if (action == "WIREFRAME") {
+				keyMapping[keyControl] = KeyAction::WIREFRAME;
 			}
 
 		}
@@ -472,14 +560,22 @@ void SceneManager::Initialize()
 	}
 
 	rapidxml::xml_node<>* trajObjectsNode = trajectoryNode->first_node("objects");
-	for (rapidxml::xml_node<>* idNode = trajObjectsNode->first_node("id");
-		idNode;
-		idNode = idNode->next_sibling("id")
-		) {
-		sceneObjects[std::stoi(idNode->value())]->traj = traj;
-		sceneObjects[std::stoi(idNode->value())]->hasTrajectory = true;
-		sceneObjects[std::stoi(idNode->value())]->Init();
+	if (trajObjectsNode) {
+		for (rapidxml::xml_node<>* idNode = trajObjectsNode->first_node("id");
+			idNode;
+			idNode = idNode->next_sibling("id")
+			) {
+			sceneObjects[std::stoi(idNode->value())]->traj = traj;
+			sceneObjects[std::stoi(idNode->value())]->hasTrajectory = true;
+			sceneObjects[std::stoi(idNode->value())]->Init();
+		}
 	}
+	else {
+		std::cout << "No objects on trajectory";
+	}
+	
+	// make a trajectory vector where I can put more trajectories
+
 #pragma endregion
 
 #pragma region Lights
@@ -616,14 +712,36 @@ void SceneManager::Initialize()
 
 }
 
-void SceneManager::FreeResources()
-{
+void SceneManager::FreeResources() {
 }
 
 void SceneManager::Draw() {
+	if (wireframe == false) {
+		for (auto obj : sceneObjects) {
+			obj.second->Draw();
+		}
+	}
+	else {
+		for (auto obj : sceneObjects) {
+			obj.second->Draw();
+		}
+	}
 
-	for (auto obj : sceneObjects) {
-		obj.second->Draw();
+	if (debug == true) {
+		// id for debugging will always be 98 and 99
+
+		shaderDebug = 
+				m_resourceManager->LoadShader(m_resourceManager->shaderResourcesUnloaded[99]);
+		shaderAxes = 
+				m_resourceManager->LoadShader(m_resourceManager->shaderResourcesUnloaded[98]);
+		
+		for (auto obj : sceneObjects) {
+			obj.second->DrawDebug();
+		}
+
+		for (auto obj : sceneObjects) {
+			obj.second->DrawAxes();
+		}
 	}
 
 }

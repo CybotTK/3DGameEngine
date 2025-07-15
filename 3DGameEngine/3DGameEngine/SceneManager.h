@@ -9,6 +9,7 @@
 #include <vector>
 
 class ResourceManager;
+class Shader;
 
 enum KeyAction {
 	MOVE_CAMERA_POSITIVE_Z,
@@ -23,11 +24,15 @@ enum KeyAction {
 	ROTATE_CAMERA_OY_NEGATIVE,
 	ROTATE_CAMERA_OZ_POSITIVE,
 	ROTATE_CAMERA_OZ_NEGATIVE,
+	DEBUG,
+	WIREFRAME,
 };
 
 class SceneManager {
 public:
 	virtual ~SceneManager();
+
+	void Init();
 
 	static SceneManager* GetInstance();
 	void Method();
@@ -75,11 +80,25 @@ public:
 	Vector3 ambiLight; // color
 	float ratioAmbiLight;
 
-private:
+	// debugging
+	bool debug = false;
+	bool wireframe = false;
+	Shader* shaderDebug;
+	Shader* shaderAxes;
 
+	// Axes Data
+	float cylinderHeight;
+	int cylinderSegments;
+	float cylinderRadius;
+	GLuint cylinderVboId;
+	GLuint cylinderEboId;
+	std::vector<Vector3> axesVertices;
+	std::vector<unsigned short> axesIndices;
+private:
 	static SceneManager* singletonInstance;
 	SceneManager();
 
+	void CreateAxes();
 };
 
 #endif // !SCENE_MANAGER_H

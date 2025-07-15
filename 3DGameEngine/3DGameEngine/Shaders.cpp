@@ -86,8 +86,6 @@ int Shader::Load()
 	kSpecUniform			= glGetUniformLocation(programId, "u_kSpec");
 	kDiffUniform			= glGetUniformLocation(programId, "u_kDiff");
 
-	debugUniform			= glGetUniformLocation(programId, "u_debug");
-	
 	return 0;
 }
 

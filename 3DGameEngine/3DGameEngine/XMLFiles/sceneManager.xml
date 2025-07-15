@@ -65,6 +65,10 @@
 			<key>X</key>
 			<action>ROTATE_CAMERA_OZ_NEGATIVE</action>
 		</control>
+		<control>
+			<key>P</key>
+			<action>DEBUG</action>
+		</control>
 		<!-- adaugati restul -->
 	</controls>
 	
@@ -440,9 +444,11 @@
 		</points>
 		<speed>10</speed>
 		<radius>50</radius>
+		<!--
 		<objects>
 			<id>1</id>
 		</objects>
+		-->
 	</trajectory>
 	
 </sceneManager>

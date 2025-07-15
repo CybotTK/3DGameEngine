@@ -134,6 +134,13 @@ void Key ( ESContext *esContext, unsigned char key, bool bIsPressed)
 		case ROTATE_CAMERA_OZ_NEGATIVE:
 			sceneManager->m_cameras[sceneManager->activeCamera]->RotateOz(-1); //clockwise
 			break;
+		case DEBUG:
+			sceneManager->debug = !sceneManager->debug;
+			std::cout << "Debug: " << sceneManager->debug<<'\n';
+			break;
+		case WIREFRAME:
+			sceneManager->wireframe = !sceneManager->wireframe;
+			break;
 		default:
 			std::cout << "Key pressed: " << key;
 			break;
@@ -178,7 +185,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	sceneManager = SceneManager::GetInstance();
 	sceneManager->InitializeWindow();
 
-	esCreateWindow ( &esContext, sceneManager->m_windowSettings.name.c_str(), Globals::screenWidth, Globals::screenHeight, ES_WINDOW_RGB | ES_WINDOW_DEPTH);
+	esCreateWindow ( &esContext, sceneManager->m_windowSettings.name.c_str(), sceneManager->m_windowSettings.width, sceneManager->m_windowSettings.height, ES_WINDOW_RGB | ES_WINDOW_DEPTH);
+
+	sceneManager->Init();
 
 	if ( Init ( &esContext ) != 0 )
 		return 0;
